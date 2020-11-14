@@ -20,6 +20,13 @@ io.on("connection", socket =>{
         messages : messages
     });
  
+    socket.on('startup', x=>{
+        socket.emit(`loggedIn`,{
+            users: users.map(s => s.username),
+            messages : messages
+        });
+    });
+
     socket.on('newuser', username =>{
         console.log(`${username} has joined`)
         socket.username = username;
