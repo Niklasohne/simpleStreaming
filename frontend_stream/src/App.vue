@@ -25,11 +25,13 @@ export default {
   },
   methods:{
     joinServer: function(){
+      this.socket.emit('joinserver', "")
+
       this.socket.on('loggedIn', data =>{
         this.messages = data.messages;
         this.users = data.users;
-        console.log("test")
         this.socket.emit('newuser', this.username);
+        console.log("test")
       });
       this.listen();
     },
@@ -40,12 +42,11 @@ export default {
     }
   },
   mounted: function () {
-    console.log("mounted")
     this.username = prompt("What is your name (used only for chatting function)", "Anonymous");
     if(!this.username){
       this.username = "Anonymous";
     }
-
+    console.log("mounted")
     this.joinServer();
   }
 

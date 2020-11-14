@@ -14,9 +14,17 @@ let index = 0;
 
 io.on("connection", socket =>{
     console.log("connection");
+
     socket.emit(`loggedIn`, {
         users: users.map(s => app.username),
         messages : messages
+    })
+
+    socket.on('joinserver',x=>{
+        io.emit(`loggedIn`,{
+            users: users.map(s => app.username),
+            messages : messages
+        })
     })
     
     socket.on('newuser', username =>{
