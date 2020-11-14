@@ -2,14 +2,9 @@ const app = require("express")();
 
 const http = require("http").Server(app);
 
-const io = require("socket.io")(http, {
-    cors:{
-        origin:"http://192.168.178.55:3000/",
-        credentials: true
-    }
-});
+const io = require("socket.io")(http);
 
-PORT = 3000;
+PORT = 3015;
 
 
 let users = [];
@@ -18,6 +13,7 @@ let messages = [];
 let index = 0;
 
 io.on("connection", socket =>{
+    console.log("connection");
     socket.emit(`loggedIn`, {
         users: users.map(s => app.username),
         messages : messages

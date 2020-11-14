@@ -18,7 +18,7 @@ export default {
   data: function(){
     return{
       username : "",
-      socket : io("http://192.168.178.55:3000"),
+      socket : io("http://dies-das-ananas.eu:3015"),
       messages: [],
       users:[]
     }
@@ -28,14 +28,25 @@ export default {
       this.socket.on('loggedIn', data =>{
         this.messages = data.messages;
         this.users = data.users;
+        console.log("test")
         this.socket.emit('newuser', this.username);
-      })
+      });
+      this.listen();
+    },
+    listen : function(){
+      this.socket.on('userOnline', user =>{
+        this.users.push(user)
+      });
     }
   },
-  mounted: function(){
+  mounted: function () {
+    console.log("mounted")
     this.username = prompt("What is your name (used only for chatting function)", "Anonymous");
-    if(!this.username)
+    if(!this.username){
       this.username = "Anonymous";
+    }
+
+    this.joinServer();
   }
 
 }
