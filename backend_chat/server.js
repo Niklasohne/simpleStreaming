@@ -16,24 +16,17 @@ io.on("connection", socket =>{
     console.log("connection");
 
     socket.emit(`loggedIn`, {
-        users: users.map(s => app.username),
+        users: users.map(s => s.username),
         messages : messages
-    })
-
-    socket.on('joinserver',x=>{
-        io.emit(`loggedIn`,{
-            users: users.map(s => app.username),
-            messages : messages
-        })
-    })
-    
+    });
+ 
     socket.on('newuser', username =>{
         console.log(`${username} has joined`)
         socket.username = username;
         users.push(socket);
 
         io.emit('userOnline', socket.username);
-    })
+    });
 
     socket.on('msg', msg =>{
         let message = {

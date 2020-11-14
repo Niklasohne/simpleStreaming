@@ -25,7 +25,6 @@ export default {
   },
   methods:{
     joinServer: function(){
-      this.socket.emit('joinserver', "")
 
       this.socket.on('loggedIn', data =>{
         this.messages = data.messages;
