@@ -13,7 +13,7 @@ io.on("connection", socket =>{
     currentUsers ++;
 
     socket.on("getStream", _name =>{
-        let x = data.list.find(record => record.name == _name)
+        let x = streamlist.streams.find(record => record.name == _name)
         socket.emit("setStream",x);
     });
 
