@@ -1,17 +1,17 @@
 import {createWebHistory, createRouter} from "vue-router";
-import videoPlayer from "@/components/Video.vue";
-import chatroom from "@/components/ChatRoom.vue";
+import Home from "../components/Home"
+import Stream from "../components/Stream"
 
 const routes = [
     {
       path: "/",
-      name: "Video",
-      component: videoPlayer,
+      name: "Home",
+      component: Home,
     },
     {
-      path: "/chat",
-      name: "Chat",
-      component: chatroom,
+      path: "/stream",
+      name: "Stream",
+      component: Stream,
     },
   ];
 

@@ -38,10 +38,11 @@ export default {
     }
   },
   methods: {
-    joinStream:function () {
-      this.socket.emit("getStream","xxx");
+    joinStream(name) {
+      this.socket.emit("getStream",name);
+
       this.socket.on("setStream", url=>{
-            this.playVideo(url)
+        this.playVideo(url)
       })
     },
 
@@ -64,11 +65,11 @@ export default {
       this.player.play()
     }
   },
-  mounted () {
-    this.joinStream();
-  }
-
-
+  mounted: function () {
+    this.emitter.on("startStream", name =>{
+      this.joinStream(name);
+    });
+	}
 }
 </script>
 
@@ -84,6 +85,6 @@ export default {
 
   .vjs-custom-skin /deep/ .video-js {
     height: 100%;
-    width: 68%;
+    width: 99%;
   }
 </style>

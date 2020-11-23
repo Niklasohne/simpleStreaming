@@ -1,22 +1,13 @@
 <template>
 	<div id="app">
-		<div id="videoContainer">
-			<Video/>
-		</div>
-		<div id="chatContainer">
-			<ChatWindow/>
-		</div>
+		<router-view></router-view>
 	</div>
 </template>
 
 <script>
-import ChatWindow from './components/ChatWindow';
-import Video from './components/Video';
 export default {
 	name: 'app',
 	components: {
-		Video,
-		ChatWindow
 	},
 	data: function () {
 		return {
@@ -33,19 +24,8 @@ body {
 	margin: 0;
 	padding: 0;
 }
-#app {
-	height: 100vh;
-	width: 100%;
-	display: flex;
-	margin: 0 auto;
-	padding: 15px;
-	overflow: auto;
-}
-#videoContainer{
-	width: 70%;
-}
-#chatContainer{
-	vertical-align: top;
-	width: 30%;
+
+#app{
+	box-sizing: border-box;
 }
 </style>

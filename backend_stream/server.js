@@ -1,16 +1,12 @@
 const { Socket } = require("socket.io");
 
 const app = require("express")();
-
 const http = require("http").Server(app);
-
 const io = require("socket.io")(http);
+const fs = require('fs');
 
 PORT = 3016;
-
 let currentUsers = 0;
-
-STREAMCOMMON = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
 
 io.on("connection", socket =>{
     console.log("connection");
@@ -20,8 +16,33 @@ io.on("connection", socket =>{
         socket.emit("setStream", STREAMCOMMON);
         //todo Add logic to select right server/stream
     });
+
+    socket.on("getStreamList",()=>{
+        socket.emit("setStreamList",streamlist);
+    })
 });
+
+function loadStreamListFromFile(){
+    try{
+        if (fs.existsSync('streams.json')){
+    
+        }else{
+            fs.copyFileSync('streams.json.standard', 'streams.json');
+        }
+    }catch(err){
+        console.error(err);
+    }
+    let raw = fs.readFileSync('streams.json');
+    let streamlist = JSON.parse(raw);
+    return streamlist;
+};
+
+
+let streamlist = loadStreamListFromFile();
+console.log(streamlist);
+
 
 http.listen(PORT,()=>{
     console.log("Listening on Port %s", PORT)
+
 });
