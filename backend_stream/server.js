@@ -12,8 +12,9 @@ io.on("connection", socket =>{
     console.log("connection");
     currentUsers ++;
 
-    socket.on("getStream", name =>{
-        socket.emit("setStream",streamlist.streams[0]);
+    socket.on("getStream", _name =>{
+        let x = data.list.find(record => record.name == _name)
+        socket.emit("setStream",x);
     });
 
     socket.on("getStreamList",()=>{
