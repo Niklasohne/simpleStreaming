@@ -54,7 +54,6 @@ io.on("connection", socket =>{
         users.splice(users.indexOf(socket),1);
     });
 
-
 });
 
 http.listen(PORT,()=>{
