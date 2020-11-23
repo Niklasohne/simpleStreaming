@@ -21,3 +21,7 @@ io.on("connection", socket =>{
         //todo Add logic to select right server/stream
     });
 });
+
+http.listen(PORT,()=>{
+    console.log("Listening on Port %s", PORT)
+});

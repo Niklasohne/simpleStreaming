@@ -26,10 +26,10 @@ export default {
         controlBar: {
           timeDivider: false,
           durationDisplay: false
-        },
-        socket: io("http://dies-das-ananas.eu:3016")
+        }
         // poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-5.jpg'
-      }
+      },
+      socket: io("http://dies-das-ananas.eu:3016")
     }
   },
   computed: {
