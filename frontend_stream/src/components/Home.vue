@@ -9,7 +9,7 @@
 						<div class="Name"><h2>{{stream.name}}</h2></div>
 						<div class="Time">Am {{stream.datum}} um {{stream.zeit}}</div>
 					</div>
-					<button class="joinbtn" @click="$router.push({path:'/stream',query:{name:'test'}})"> Join </button>
+					<button class="joinbtn" @click="$router.push({path:'/stream',query:{name:stream.name}})"> Join </button>
 				</div>
 			</div>
 		</div>

@@ -2,7 +2,11 @@ const { Socket } = require("socket.io");
 
 const app = require("express")();
 const http = require("http").Server(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http,{
+    cors: {
+            origin:"*",
+    }
+});
 const fs = require('fs');
 
 PORT = 3016;
