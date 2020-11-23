@@ -12,6 +12,7 @@ const routes = [
       path: "/stream",
       name: "Stream",
       component: Stream,
+      props: (route) => ({ id: route.query.id })  
     },
   ];
 

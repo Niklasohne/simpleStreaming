@@ -13,8 +13,7 @@ io.on("connection", socket =>{
     currentUsers ++;
 
     socket.on("getStream", name =>{
-        socket.emit("setStream", STREAMCOMMON);
-        //todo Add logic to select right server/stream
+        socket.emit("setStream",streamlist.streams[0]);
     });
 
     socket.on("getStreamList",()=>{

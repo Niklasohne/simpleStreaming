@@ -42,7 +42,7 @@ export default {
       this.socket.emit("getStream",name);
 
       this.socket.on("setStream", url=>{
-        this.playVideo(url)
+        this.playVideo(url.url)
       })
     },
 
