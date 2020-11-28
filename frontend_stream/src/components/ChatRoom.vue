@@ -1,6 +1,6 @@
 <template>
 	<div class="chat-window">
-		<div class="messages">
+		<div class="messages" ref="messages">
 			<div class="message" v-for="message in messages" v-bind:key="message._id">
 				<div class="username">{{message.username}}</div>
 				<div class="message-text">{{message.msg}}</div>
@@ -41,6 +41,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	background-color: #F9F9F9;
+	max-height: 85%;
 	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.15);
 	.messages {
 		flex: 1;

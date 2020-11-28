@@ -1,6 +1,8 @@
 <template>
 	<div class="Home">
-		<h1> Wilkommen auf der Streamingwebsite</h1>
+		<div class="willkommen">
+			<h1> Wilkommen auf der Streamingwebsite</h1>
+		</div>
 		<div class="streamSelect">
 			<h3>Geplante Streams :</h3>
 			<div class="streams" v-bind="streams">
@@ -27,13 +29,6 @@ export default {
 			streams: []
 		}
 	},
-	methods:{
-		start(){
-			console.log("start");
-			this.$router.push({path:'/stream',quary:{name:'test'}});
-		}
-		
-	},
 	mounted: function () {
 		this.socket.emit("getStreamList","");
 
@@ -48,8 +43,16 @@ export default {
 
 <style lang="scss" scoped>
 
-#btn{
-	box-shadow: 10px green;
+
+.home{
+	width: 100%;
+}
+
+.willkommen{
+	padding: 10px;
+	margin: 0 auto;
+	width: 60%;
+	min-width: 400px;
 }
 
 .streamSelect {
@@ -58,7 +61,9 @@ export default {
 	flex-direction: column;
 	background-color: #F9F9F9;
 	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.15);
-	margin-left: 10%;
+	margin: 10% auto;
+	text-align: center;
+	min-width: 370px;
 	width: 40%;
 	.streams {
 		flex: 1;

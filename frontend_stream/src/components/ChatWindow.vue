@@ -43,7 +43,8 @@ export default {
 				this.users.splice(this.users.indexOf(user), 1);
 			});
 			this.socket.on('msg', message => {
-				this.messages.push(message);
+				this.messages.unshift(message);
+
 			});
 		},
 		sendMsgToServer: function (message) {
@@ -74,10 +75,12 @@ body {
 #chat {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	height: 92%;
 	width: 100%;
 	margin: 0 auto;
 	padding: 15px;
 	box-sizing: border-box;
 }
+
+
 </style>

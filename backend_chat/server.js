@@ -45,7 +45,7 @@ io.on("connection", socket =>{
             username : socket.username,
             msg : msg
         }
-        messages.push(message);
+        messages.unshift(message);
         io.emit('msg', message);
 
         index++;
