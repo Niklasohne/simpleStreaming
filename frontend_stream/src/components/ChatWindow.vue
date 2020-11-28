@@ -20,7 +20,7 @@ export default {
 	data: function () {
 		return {
 			username: "",
-			socket: io("http://dies-das-ananas.eu:3015"),
+			socket: io("http://dies-das-ananas.eu:3015", {transports: ['websocket'], upgrade: false}),
 			messages: [],
       users: [],
 		}
@@ -57,6 +57,9 @@ export default {
 			this.username = "Anonymous";
 		}
 		this.joinServer();
+	},
+	unmounted: function(){
+		this.socket.disconnect();
 	}
 }
 </script>
