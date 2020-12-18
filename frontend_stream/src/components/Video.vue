@@ -57,7 +57,8 @@ export default {
   },
   mounted: function () {
     this.emitter.on("startStream", name =>{
-            console.log("Video : " + name);
+            console.log("Video : " + name.url);
+            this.playVideo(name.url);
     });
   },
   unmounted: function(){

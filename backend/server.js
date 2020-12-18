@@ -34,8 +34,8 @@ io.on('connection', socket =>{
 
 
     //join room
-    socket.on('joinRoom', ({username, room}) => {
-        const user = userJoin(socket.id, username, room);
+    socket.on('joinRoom', ({userX, room}) => {
+        const user = userJoin(socket.id, userX, room);
         socket.join(user.room);
 
         //update everyones user and room info
@@ -46,6 +46,16 @@ io.on('connection', socket =>{
         let x = streamlist.streams.find(e => e.name == room);
         socket.emit('startStream', x)
     });
+
+    socket.on('leaveRoom', ()=>{
+        const user = userLeave(socket.id);
+        if(user){
+            //io.to(user.room).emit('msg', formatMsg(botName,`${user.username} has left`));
+
+            updateRoomInfo(user.room);
+        }
+    });
+
 
     //listen for chatmsg
     socket.on('chatMsg', (msg)=>{

@@ -23,6 +23,9 @@ export default {
     },
     mounted: function () {
 		this.emitter.emit('joinRoom', this.$route.query.name);
+	},
+	unmounted: function(){
+		this.emitter.emit('leaveRoom', '')
 	}
 
 }

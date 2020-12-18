@@ -3,7 +3,7 @@
 		<div class="messages" ref="messages">
 			<div class="message" v-for="message in messages" v-bind:key="message._id">
 				<div class="username">{{message.username}}</div>
-				<div class="message-text">{{message.msg}}</div>
+				<div class="message-text">{{message.text}}</div>
 			</div>
 		</div>
 		<form class="input-container" v-on:submit="sendMessage">
@@ -28,7 +28,7 @@ export default {
 			if (!this.msg) {
 				return;
 			}
-			this.$emit('sendmessage', this.msg);
+			this.emitter.emit('sendMsg', this.msg);
 			this.msg = "";
 		}
 	}

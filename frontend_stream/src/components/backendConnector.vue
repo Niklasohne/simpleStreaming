@@ -28,10 +28,14 @@ export default {
         });
 
         
-        this.emitter.on("joinRoom", ({room}) =>{
-            const user = this.username;
-            this.emitter.emit("setName", user);
-            this.socket.emit('joinRoom', {user,room});
+        this.emitter.on("leaveRoom", () =>{
+            this.socket.emit('leaveRoom', '');
+        });
+
+        this.emitter.on("joinRoom", room =>{
+            const userX = this.username;
+            this.emitter.emit("setName", userX);
+            this.socket.emit('joinRoom', {userX,room});
         });
 
         this.emitter.on("sendMsg", msg =>{
@@ -55,7 +59,7 @@ export default {
 
 
         this.socket.on('startStream', url=>{
-            this.emitter.emit('startstream', url);
+            this.emitter.emit('startStream', url);
         });
 
 

@@ -3,7 +3,9 @@
 		<div class="header">
 			<h1>Chatroom</h1>
 			<p class="username">Username: {{ username }}</p>
-			<p class="online">Online: {{ users.length }}</p>
+			<div class="online" v-for="u in users" v-bind:key="u._id">
+				<div class="username">{{u.username}}</div>
+			</div>
 		</div>
 		<ChatRoom v-bind:messages="messages" v-on:sendmessage="this.sendMsgToServer" />
 	</div>
@@ -30,8 +32,17 @@ export default {
 	mounted: function () {
 		this.emitter.on('setName', (name) => {
 			this.username = name;
-			console.log("asd");
 		});
+
+		this.emitter.on('roomInfo', ({room, users}) =>{
+			console.log("debug : " + room);
+			this.users = users;
+			console.log(users);
+		});
+
+		this.emitter.on('loadOldMsg', msgList => this.messages = msgList)
+
+		this.emitter.on('msg', msgList => this.messages.push(msgList))
 	}
 }
 </script>
