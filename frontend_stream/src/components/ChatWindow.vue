@@ -20,14 +20,15 @@ export default {
 	data: function () {
 		return {
 			username: "",
-			socket: io("http://dies-das-ananas.eu:3015", {transports: ['websocket'], upgrade: false}),
+			//socket: io("http://dies-das-ananas.eu:3015", {transports: ['websocket'], upgrade: false}),
+			socket: io("localhost:3000"),
 			messages: [],
       users: [],
 		}
 	},
 	methods: {
 		joinServer: function () {
-			this.socket.emit('startup',"");
+
 			this.socket.on('loggedIn', data => {
 				this.messages = data.messages;
 				this.users = data.users;
@@ -48,7 +49,7 @@ export default {
 			});
 		},
 		sendMsgToServer: function (message) {
-      console.log("sending")
+			console.log("sending")
 			this.socket.emit('msg', message);
 		}
 	},

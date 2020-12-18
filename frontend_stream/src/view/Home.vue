@@ -20,23 +20,20 @@
 
 
 <script>
-import io from 'socket.io-client';
 export default {
 	name: 'Home',
 	data(){
 		return{
-			socket: io("http://dies-das-ananas.eu:3016"),
 			streams: []
 		}
 	},
 	mounted: function () {
-		this.socket.emit("getStreamList","");
+		this.emitter.emit("getStreamList", "");
 
-		this.socket.on("setStreamList",list=>{
-			console.log(list);
-			
+		this.emitter.on("setStreamList", list=>{
+			console.log(list)
 			this.streams = list.streams;
-		})
+		});
 	}
 }
 </script>

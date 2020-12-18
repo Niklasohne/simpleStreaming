@@ -12,6 +12,7 @@
     "mitt": "^2.1.0",
     "socket.io-client": "^3.0.1",
     "vue": "^3.0.0",
+    "vue-cookies": "^1.7.4",
     "vue-router": "^4.0.0-rc.3",
     "vue-videojs7": "^0.1.5"
   },

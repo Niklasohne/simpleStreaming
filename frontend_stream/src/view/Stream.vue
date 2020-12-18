@@ -13,8 +13,8 @@
 
 <script>
 
-import Video from "./Video"
-import ChatWindow from "./ChatWindow"
+import Video from "../components/Video"
+import ChatWindow from "../components/ChatWindow"
 export default {
     name: 'Stream',
     components:{

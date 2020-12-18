@@ -1,13 +1,16 @@
 <template>
 	<div id="app">
 		<router-view :key='$route.fullPath'></router-view>
+		<backend-connector/>
 	</div>
 </template>
 
 <script>
+import BackendConnector from './components/backendConnector.vue'
 export default {
 	name: 'app',
 	components: {
+		BackendConnector
 	},
 	data: function () {
 		return {

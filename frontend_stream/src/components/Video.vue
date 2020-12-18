@@ -69,6 +69,9 @@ export default {
     this.emitter.on("startStream", name =>{
       this.joinStream(name);
     });
+  },
+  unmounted: function(){
+		this.player.pause();
 	}
 }
 </script>

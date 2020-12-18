@@ -1,9 +1,7 @@
-import { createApp } from 'vue'
+import { createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import mitt from 'mitt'
-
-
 
 let app = createApp(App)
 
