@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import io from 'socket.io-client';
 import ChatRoom from './ChatRoom';
 export default {
 	name: 'ChatWindow',
@@ -20,48 +19,19 @@ export default {
 	data: function () {
 		return {
 			username: "",
-			//socket: io("http://dies-das-ananas.eu:3015", {transports: ['websocket'], upgrade: false}),
-			socket: io("localhost:3000"),
 			messages: [],
-      users: [],
+			users: [],
 		}
 	},
 	methods: {
 		joinServer: function () {
-
-			this.socket.on('loggedIn', data => {
-				this.messages = data.messages;
-				this.users = data.users;
-				this.socket.emit('newuser', this.username);
-			});
-			this.listen();
 		},
-		listen: function () {
-			this.socket.on('userOnline', user => {
-				this.users.push(user);
-			});
-			this.socket.on('userLeft', user => {
-				this.users.splice(this.users.indexOf(user), 1);
-			});
-			this.socket.on('msg', message => {
-				this.messages.unshift(message);
-
-			});
-		},
-		sendMsgToServer: function (message) {
-			console.log("sending")
-			this.socket.emit('msg', message);
-		}
 	},
 	mounted: function () {
-		this.username = prompt("What is your username?", "Anonymous");
-		if (!this.username) {
-			this.username = "Anonymous";
-		}
-		this.joinServer();
-	},
-	unmounted: function(){
-		this.socket.disconnect();
+		this.emitter.on('setName', (name) => {
+			this.username = name;
+			console.log("asd");
+		});
 	}
 }
 </script>

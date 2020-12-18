@@ -41,7 +41,10 @@ io.on('connection', socket =>{
         //update everyones user and room info
         updateRoomInfo(user.room);
 
+        //send infos to the client
         socket.emit('loadOldMsg', getHistoryByRoom(user.room));
+        let x = streamlist.streams.find(e => e.name == room);
+        socket.emit('startStream', x)
     });
 
     //listen for chatmsg

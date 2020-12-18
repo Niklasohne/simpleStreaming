@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import io from 'socket.io-client';
 import {videoPlayer} from 'vue-videojs7'
 
 export default {
@@ -28,8 +27,7 @@ export default {
           durationDisplay: false
         }
         // poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-5.jpg'
-      },
-      socket: io("http://dies-das-ananas.eu:3016")
+      }
     }
   },
   computed: {
@@ -38,14 +36,6 @@ export default {
     }
   },
   methods: {
-    joinStream(name) {
-      this.socket.emit("getStream",name);
-
-      this.socket.on("setStream", url=>{
-        this.playVideo(url.url)
-      })
-    },
-
     onPlayerPlay (player) {
       console.log('player play!', player)
     },
@@ -67,7 +57,7 @@ export default {
   },
   mounted: function () {
     this.emitter.on("startStream", name =>{
-      this.joinStream(name);
+            console.log("Video : " + name);
     });
   },
   unmounted: function(){

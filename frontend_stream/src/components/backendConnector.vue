@@ -11,7 +11,6 @@ export default {
 		return {
 			username: "Anonym",
 			socket: io("http://dies-das-ananas.eu:3714", {transports: ['websocket'], upgrade: false}),
-			//socket: io("http://localhost:8080", {transports: ['websocket'], upgrade: false}),
 		}
 	},
 	methods: {
@@ -31,6 +30,7 @@ export default {
         
         this.emitter.on("joinRoom", ({room}) =>{
             const user = this.username;
+            this.emitter.emit("setName", user);
             this.socket.emit('joinRoom', {user,room});
         });
 
@@ -51,6 +51,11 @@ export default {
         });
         this.socket.on("msg", parameter=>{
             this.emitter.emit('msg', parameter);
+        });
+
+
+        this.socket.on('startStream', url=>{
+            this.emitter.emit('startstream', url);
         });
 
 

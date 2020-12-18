@@ -22,7 +22,7 @@ export default {
         ChatWindow
     },
     mounted: function () {
-        this.emitter.emit("startStream", this.$route.query.name);
+		this.emitter.emit('joinRoom', this.$route.query.name);
 	}
 
 }
