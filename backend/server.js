@@ -1,13 +1,18 @@
+const { Socket } = require("socket.io");
+
+const app = require("express")();
+const http = require("http").Server(app);
+const io = require("socket.io")(http,{
+    cors: {
+            origin:"*",
+    }
+});
 const fs = require('fs');
-const http = require('http');
-const socketio = require('socket.io');
-const express = require('express');
+
+
 const {formatMsg,addHistory,getHistoryByRoom} = require('./utils/messages');
 const {userJoin,userLeave, getUser, getRoomUsers} = require('./utils/users');
 
-const app = express();
-const server = http.createServer(app);
-const io = socketio(server);
 
 const botName = "ChatBot"
 const PORT = 3714 || process.env.PORT;
@@ -17,7 +22,7 @@ let streamlist = loadStreamListFromFile();
 console.log(streamlist);
 
 //app.use(express.static(path.join(__dirname, 'public')));
-server.listen(PORT, ()=> console.log(`Server running on port  ${PORT}`));
+http.listen(PORT, ()=> console.log(`Server running on port  ${PORT}`));
 
 //run when client connect
 io.on('connection', socket =>{

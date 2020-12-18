@@ -10,8 +10,8 @@ export default {
 	data: function () {
 		return {
 			username: "Anonym",
-			//socket: io("http://dies-das-ananas.eu:3015", {transports: ['websocket'], upgrade: false}),
-			socket: io("http://localhost:8080", {transports: ['websocket'], upgrade: false}),
+			socket: io("http://dies-das-ananas.eu:3714", {transports: ['websocket'], upgrade: false}),
+			//socket: io("http://localhost:8080", {transports: ['websocket'], upgrade: false}),
 		}
 	},
 	methods: {
