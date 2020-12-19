@@ -2,9 +2,7 @@
   <div class="player">
     <videoPlayer ref="videoPlayer"
                   class="vjs-custom-skin"
-                  :options="playerOptions"
-                  @play="onPlayerPlay($event)"
-                  @ready="onPlayerReady($event)">
+                  :options="playerOptions">
     </videoPlayer>
   </div>
 </template>
@@ -20,8 +18,10 @@ export default {
   data () {
     return {
       playerOptions: {
-        autoplay: true,
+        autoplay: false,
         controls: true,
+        aspectRatio: "16:9",
+        nativeAudioTracks: false,
         controlBar: {
           timeDivider: false,
           durationDisplay: false
@@ -35,42 +35,33 @@ export default {
       return this.$refs.videoPlayer.player
     }
   },
-  methods: {
-    onPlayerPlay (player) {
-      console.log('player play!', player)
-    },
-    onPlayerReady (player) {
-      console.log('player ready!', player)
-      this.player.play()
-    },
+  methods: {  
     playVideo: function (source) {
       const video = {
         withCredentials: false,
         type: 'application/x-mpegurl',
         src: source
       }
-      //this.player.reset() // in IE11 (mode IE10) direct usage of src() when <src> is already set, generated errors,
+      this.player.reset()
       this.player.src(video)
-      //this.player.load()
-      this.player.play()
+      //this.player.play() somehow bug with autoplay
     }
   },
   mounted: function () {
     this.emitter.on("startStream", name =>{
-            console.log("Video : " + name.url);
-            this.playVideo(name.url);
+      this.playVideo(name.url);
     });
   },
   unmounted: function(){
-		this.player.pause();
 	}
 }
 </script>
 
 <style scoped>
   .player {
+    padding-top: 50px;
     width: 100%;
-    height: 100%;
+    
   }
   .vjs-custom-skin {
     height: 100% !important;
@@ -78,7 +69,7 @@ export default {
   }
 
   .vjs-custom-skin /deep/ .video-js {
-    height: 100%;
+    height: 99%;
     width: 99%;
   }
 </style>

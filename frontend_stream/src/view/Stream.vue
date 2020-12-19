@@ -1,6 +1,9 @@
 <template>
 	<div id="streaming">
 		<div id="videoContainer">
+			<div id="information">
+				<h1> {{roomname}}</h1> 
+			</div>
 			<Video/>
 		</div>
 		<div id="chatContainer">
@@ -20,9 +23,15 @@ export default {
     components:{
         Video,
         ChatWindow
-    },
+	},
+	data: function () {
+		return {
+			roomname: "_ _ _", 
+		}
+	},
     mounted: function () {
-		this.emitter.emit('joinRoom', this.$route.query.name);
+		this.roomname = this.$route.query.name;
+		this.emitter.emit('joinRoom', this.roomname);
 	},
 	unmounted: function(){
 		this.emitter.emit('leaveRoom', '')
@@ -34,15 +43,27 @@ export default {
 
 <style>
 #streaming {
-	height: 100vh;
+	height: 95vh;
+	max-height: 400vh;
 	width: 100%;
 	display: flex;
 	margin: 0 auto;
-	padding: 15px;
-	overflow: hidden;
+	padding: 10px;
 }
+
+#information{
+	margin: 0 auto;
+	margin-top: 30px;
+	padding: 20px;
+	width: 80%;
+	background-color: var(--dark-color-b);
+	border-radius: 50px;
+	text-align: center;
+	
+}
+
 #videoContainer{
-	height: 90%;
+	height: 100%;
 	width: 70%;
 }
 #chatContainer{
@@ -52,7 +73,17 @@ export default {
 }
 
 
-@media (max-width: 1000px) {     
+@media (max-width: 1000px) {    
+	#information{
+	margin: 0 auto;
+	margin-top: 10px;
+	padding: 10px;
+	width: 80%;
+	background-color: var(--dark-color-b);
+	border-radius: 50px;
+	text-align: center;
+	
+} 
 	#streaming {
 	display: flex;
 	flex-direction: column;
@@ -60,7 +91,8 @@ export default {
 
 	#videoContainer{
 		width: 100%;
-		height: 50%;
+		height: 100ch%;
+		margin-bottom: 20px;
 	}
 
 	#chatContainer{
