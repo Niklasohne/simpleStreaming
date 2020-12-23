@@ -3,6 +3,8 @@
 		<div class="willkommen">
 			<h1> Wilkommen auf der Streamingwebsite</h1>
 		</div>
+		<div class="known_bugs" v-html="dailyMsg">
+		</div>
 		<div class="streamSelect">
 			<h3>Geplante Streams :</h3>
 			<div class="streams" v-bind="streams">
@@ -24,6 +26,7 @@ export default {
 	name: 'Home',
 	data(){
 		return{
+			dailyMsg: "O happy day (looks like there is no daily message)",
 			streams: []
 		}
 	},
@@ -31,6 +34,7 @@ export default {
 		this.emitter.emit("getStreamList", "");
 		this.emitter.on("setStreamList", list=>{
 			this.streams = list.streams;
+			this.dailyMsg = list.msgOfTheDay;
 		});
 	}
 }
@@ -46,15 +50,22 @@ export default {
 .willkommen{
 	padding: 10px;
 	margin: 0 auto;
-	width: 60%;
-	min-width: 400px;
+	width: 40%;
+}
+
+.known_bugs{
+	max-width: 700px;
+	background-color: var(--light-color-b);
+	padding: 10px;
+	border-radius: 20px;
+	margin: 0 auto;
 }
 
 .streamSelect {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	margin: 10% auto;
+	margin: 4% auto;
 	padding: 10px;
 	text-align: center;
 	min-width: 370px;
