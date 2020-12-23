@@ -20,23 +20,18 @@
 
 
 <script>
-import io from 'socket.io-client';
 export default {
 	name: 'Home',
 	data(){
 		return{
-			socket: io("http://dies-das-ananas.eu:3016"),
 			streams: []
 		}
 	},
 	mounted: function () {
-		this.socket.emit("getStreamList","");
-
-		this.socket.on("setStreamList",list=>{
-			console.log(list);
-			
+		this.emitter.emit("getStreamList", "");
+		this.emitter.on("setStreamList", list=>{
 			this.streams = list.streams;
-		})
+		});
 	}
 }
 </script>
@@ -59,9 +54,8 @@ export default {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	background-color: #F9F9F9;
-	box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.15);
 	margin: 10% auto;
+	padding: 10px;
 	text-align: center;
 	min-width: 370px;
 	width: 40%;
@@ -69,9 +63,12 @@ export default {
 		flex: 1;
 
 		.stream {
+			background: var(--light-color-b);
+			border-radius: 15px;
 			display: flex;
 			border-bottom: 1px solid #EFEFEF;
 			padding: 20px;
+			margin: 10px;
 			&:last-of-type {
 				border-bottom: none;
 			}
@@ -79,6 +76,8 @@ export default {
 				flex: 10;
 			}
 			.joinbtn{
+				background: var(--dark-color-a);
+				border-radius: 10px;
 				flex: 4;
 			}
 		}
