@@ -12,6 +12,7 @@ const fs = require('fs');
 
 const {formatMsg,addHistory,getHistoryByRoom} = require('./utils/messages');
 const {userJoin,userLeave, getUser, getRoomUsers} = require('./utils/users');
+const { argv } = require("process");
 
 
 const botName = "ChatBot"
@@ -65,7 +66,6 @@ io.on('connection', socket =>{
         }
     });
 
-
     //manuell leaving a room
     socket.on('leaveRoom', ()=>{
         leaveRoom(socket.id);
@@ -83,7 +83,8 @@ function leaveRoom(sockedID){
         const user = userLeave(sockedID);
         if(user){
             updateRoomInfo(user.room);
-            }
+            socket.leave(user.room);
+        }
     }catch(e){
         console.warn("Error occured while disconnecting a Client" + e);
     }
@@ -102,16 +103,18 @@ function updateRoomInfo(room){
 
 
 function loadStreamListFromFile(){
+    console.log(process.argv)
+    const path = process.argv.length >2 ? process.argv[2] : 'streams.json';
     try{
-        if (fs.existsSync('streams.json')){
+        if (fs.existsSync(path)){
     
         }else{
-            fs.copyFileSync('streams.json.standard', 'streams.json');
+            fs.copyFileSync('streams.json.standard', path);
         }
     }catch(e){
         console.error("loading StreamList from config was not possible : " + e);
     }
-    let raw = fs.readFileSync('streams.json');
+    let raw = fs.readFileSync(path);
     let streamlist = JSON.parse(raw);
     return streamlist;
 };
