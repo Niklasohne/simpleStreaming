@@ -57,9 +57,6 @@ io.on('connection', socket =>{
         try{
             const user = getUser(socket.id);
             const message = addHistory(user,msg);
-            array.forEach(element => {
-                
-            });
             io.to(user.room).emit('msg', message);
         }catch(e){
             console.warn("error while sending message : " + e);
@@ -68,19 +65,19 @@ io.on('connection', socket =>{
 
     //manuell leaving a room
     socket.on('leaveRoom', ()=>{
-        leaveRoom(socket.id);
+        leaveRoom(socket);
     });
 
     //run when client disconnect
     socket.on('disconnect', ()=>{
-        leaveRoom(socket.id);
+        leaveRoom(socket);
     })
 });
 
 
-function leaveRoom(sockedID){
+function leaveRoom(socket, sockedID){
     try{
-        const user = userLeave(sockedID);
+        const user = userLeave(socket.id);
         if(user){
             updateRoomInfo(user.room);
             socket.leave(user.room);
@@ -103,7 +100,6 @@ function updateRoomInfo(room){
 
 
 function loadStreamListFromFile(){
-    console.log(process.argv)
     const path = process.argv.length >2 ? process.argv[2] : 'streams.json';
     try{
         if (fs.existsSync(path)){
