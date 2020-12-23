@@ -35,6 +35,7 @@ io.on('connection', socket =>{
 
     //join room
     socket.on('joinRoom', ({userX, room}) => {
+        try{
         const user = userJoin(socket.id, userX, room);
         socket.join(user.room);
 
@@ -45,42 +46,58 @@ io.on('connection', socket =>{
         socket.emit('loadOldMsg', getHistoryByRoom(user.room));
         let x = streamlist.streams.find(e => e.name == room);
         socket.emit('startStream', x)
+        }catch (e){
+            console.warn("error while joining a room : " + e);
+        }
     });
 
-    socket.on('leaveRoom', ()=>{
-        const user = userLeave(socket.id);
-        if(user){
-            //io.to(user.room).emit('msg', formatMsg(botName,`${user.username} has left`));
-
-            updateRoomInfo(user.room);
+    //listen for msg and broadcast them to the current room
+    socket.on('chatMsg', (msg)=>{
+        try{
+            const user = getUser(socket.id);
+            const message = addHistory(user,msg);
+            array.forEach(element => {
+                
+            });
+            io.to(user.room).emit('msg', message);
+        }catch(e){
+            console.warn("error while sending message : " + e);
         }
     });
 
 
-    //listen for chatmsg
-    socket.on('chatMsg', (msg)=>{
-        const user = getUser(socket.id);
-        io.to(user.room).emit('msg', addHistory(user, msg));
+    //manuell leaving a room
+    socket.on('leaveRoom', ()=>{
+        leaveRoom(socket.id);
     });
 
     //run when client disconnect
     socket.on('disconnect', ()=>{
-        const user = userLeave(socket.id);
-        if(user){
-            //io.to(user.room).emit('msg', formatMsg(botName,`${user.username} has left`));
-
-            updateRoomInfo(user.room);
-        }
+        leaveRoom(socket.id);
     })
 });
 
 
+function leaveRoom(sockedID){
+    try{
+        const user = userLeave(sockedID);
+        if(user){
+            updateRoomInfo(user.room);
+            }
+    }catch(e){
+        console.warn("Error occured while disconnecting a Client" + e);
+    }
+}
 
 function updateRoomInfo(room){
-    io.to(room).emit('roomInfo', {
-        room: room,
-        users: getRoomUsers(room)
-    });
+    try{
+        io.to(room).emit('roomInfo', {
+            room: room,
+            users: getRoomUsers(room)
+        });
+    }catch(e){
+        console.warn("Updating Room was not possible" + e);
+    }
 }
 
 
@@ -91,8 +108,8 @@ function loadStreamListFromFile(){
         }else{
             fs.copyFileSync('streams.json.standard', 'streams.json');
         }
-    }catch(err){
-        console.error(err);
+    }catch(e){
+        console.error("loading StreamList from config was not possible : " + e);
     }
     let raw = fs.readFileSync('streams.json');
     let streamlist = JSON.parse(raw);

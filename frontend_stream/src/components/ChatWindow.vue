@@ -39,6 +39,7 @@
 </template>
 
 <script>
+
 export default {
 	name: 'ChatWindow',
 	data: function () {
@@ -82,7 +83,9 @@ export default {
 
 		this.emitter.on('msg', msgList => {
 			//add msg
+			console.log(msgList)
 			this.messages.push(msgList)
+			console.log(this.messages)
 			//scroll down
 			this.scroll();
 		});
