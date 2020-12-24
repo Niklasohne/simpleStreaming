@@ -50,6 +50,7 @@ export default {
   mounted: function () {
     this.emitter.on("startStream", name =>{
       this.playVideo(name.url);
+      this.emitter.emit('setDescription', name.desc);
     });
   },
   unmounted: function(){
@@ -59,7 +60,7 @@ export default {
 
 <style scoped>
   .player {
-    padding-top: 50px;
+    padding-top: 10px;
     width: 100%;
     
   }

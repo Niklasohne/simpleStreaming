@@ -5,6 +5,7 @@
 				<h1> {{roomname}}</h1> 
 			</div>
 			<Video/>
+			<div id="description" v-html="description"></div>
 		</div>
 		<div id="chatContainer">
 			<ChatWindow/>
@@ -27,11 +28,16 @@ export default {
 	data: function () {
 		return {
 			roomname: "_ _ _", 
+			description : "hier steht toller text<br/>hier steht auch toller text<br/>"
 		}
 	},
     mounted: function () {
 		this.roomname = this.$route.query.name;
 		this.emitter.emit('joinRoom', this.roomname);
+
+		this.emitter.on('setDescription', desc =>{
+			this.description = desc;
+		});
 	},
 	unmounted: function(){
 		this.emitter.emit('leaveRoom', '')
@@ -42,8 +48,9 @@ export default {
 
 
 <style>
+
 #streaming {
-	height: 95vh;
+	height: 90vh;
 	max-height: 400vh;
 	width: 100%;
 	display: flex;
@@ -53,8 +60,7 @@ export default {
 
 #information{
 	margin: 0 auto;
-	margin-top: 30px;
-	padding: 20px;
+	padding: 15px;
 	width: 80%;
 	background-color: var(--dark-color-b);
 	border-radius: 50px;
@@ -64,13 +70,27 @@ export default {
 
 #videoContainer{
 	height: 100%;
-	width: 70%;
+	width: 65%;
 }
 #chatContainer{
 	vertical-align: top;
 	width: 30%;
+	margin-left: 5%;
+	margin-right: 10px;
+	max-height: 100vh;
 	min-width: 280px;
 }
+#description{
+	width: 96%;
+	background-color: var(--light-color-b);
+	padding: 15px;
+	margin-top: 20px;
+	border-radius: 20px;
+	height: 150px;
+	max-height: 300px;
+	overflow-y: scroll;
+}
+
 
 
 @media (max-width: 1000px) {    
@@ -87,16 +107,23 @@ export default {
 	#streaming {
 	display: flex;
 	flex-direction: column;
+	margin: 0 auto;
 	}
 
 	#videoContainer{
 		width: 100%;
-		height: 100ch%;
+		height: 135%;
 		margin-bottom: 20px;
 	}
 
+	#description{
+		margin: 0 auto;
+		margin-top: 20px;
+		overflow: scroll;
+	}
 	#chatContainer{
 	vertical-align: top;
+	margin: 0 auto;
 	height: 30%;
 	width: 100%;
 }

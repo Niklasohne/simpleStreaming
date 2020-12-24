@@ -3,7 +3,7 @@
 		<div class="willkommen">
 			<h1> Wilkommen auf der Streamingwebsite</h1>
 		</div>
-		<div class="known_bugs" v-html="dailyMsg">
+		<div class="dailyMsg" v-html="dailyMsg">
 		</div>
 		<div class="streamSelect">
 			<h3>Geplante Streams :</h3>
@@ -53,7 +53,7 @@ export default {
 	width: 40%;
 }
 
-.known_bugs{
+.dailyMsg{
 	max-width: 700px;
 	background-color: var(--light-color-b);
 	padding: 10px;
