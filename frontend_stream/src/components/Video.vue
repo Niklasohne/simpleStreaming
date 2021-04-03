@@ -1,50 +1,36 @@
 <template>
   <div class="player">
-    <videoPlayer ref="videoPlayer"
-                  class="vjs-custom-skin"
-                  :options="playerOptions">
-    </videoPlayer>
+    <video
+      id="vid1"
+      class="video-js vjs-default-skin"
+      autoplay
+      data-setup='{ "techOrder": ["youtube", "html5"] , "youtube": { "ytControls": 2 }}'
+    >
+      <source src="https://www.youtube.com/watch?v=SkgTxQm9DWM" type="video/youtube">
+    </video>
   </div>
 </template>
 
 <script>
-import {videoPlayer} from 'vue-videojs7'
+import "videojs-youtube"
+import videojs from 'video.js'
 
 export default {
   name: 'Video',
-  components: {
-    videoPlayer
-  },
-  data () {
-    return {
-      playerOptions: {
-        autoplay: false,
-        controls: true,
-        aspectRatio: "16:9",
-        nativeAudioTracks: false,
-        controlBar: {
-          timeDivider: false,
-          durationDisplay: false
-        }
-        // poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-5.jpg'
-      }
-    }
-  },
   computed: {
-    player () {
-      return this.$refs.videoPlayer.player
+    player2(){
+      return this.$refs.videoPlayer2
     }
   },
   methods: {  
     playVideo: function (source) {
-      const video = {
-        withCredentials: false,
-        type: 'application/x-mpegurl',
-        src: source
+
+      var player = videojs("vid1")
+      if (source.includes("youtube")){
+        player.src({src:source , type: "video/youtube"})
+      } else{
+        player.src({src:source , type: "application/x-mpegurl"})
       }
-      this.player.reset()
-      this.player.src(video)
-      //this.player.play() somehow bug with autoplay
     }
   },
   mounted: function () {
@@ -64,13 +50,20 @@ export default {
     width: 100%;
     
   }
-  .vjs-custom-skin {
-    height: 100% !important;
-    width: 100%;
+  .vjs-youtube {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
   }
 
-  .vjs-custom-skin /deep/ .video-js {
-    height: 99%;
-    width: 99%;
+  .vjs-youtube iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   }
+
 </style>

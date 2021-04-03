@@ -28,7 +28,7 @@ export default {
 	data: function () {
 		return {
 			roomname: "_ _ _", 
-			description : "hier steht toller text<br/>hier steht auch toller text<br/>"
+			description : "Wenn du diesen platzhalter siehst läd die seite noch den Stream <br/> hier ist nyan cat für dich :)"
 		}
 	},
     mounted: function () {
