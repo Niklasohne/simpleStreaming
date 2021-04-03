@@ -4,6 +4,7 @@
       id="vid1"
       class="video-js vjs-default-skin"
       autoplay
+      crossorigin="anonymous"
       data-setup='{ "techOrder": ["youtube", "html5"] , "youtube": { "ytControls": 2 }}'
     >
       <source src="https://www.youtube.com/watch?v=SkgTxQm9DWM" type="video/youtube">
